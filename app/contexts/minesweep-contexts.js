@@ -1,5 +1,7 @@
 import Redmine from 'promised-redmine'
 import App from '../compornents/app'
+import UserSetting from '../services/user-setting'
+import "babel/polyfill";
 
 export class MinesweepContexts extends Arda.Context {
   get component() {
@@ -8,6 +10,11 @@ export class MinesweepContexts extends Arda.Context {
   initState() {
     return {
       client: (function() {
+        let userSetting = await(new UserSetting().first())
+        if(userSetting == void 0) {
+          Arda.Router.push()
+          return {}
+        }
         let client = new Redmine(
           {
             protocol: "http",

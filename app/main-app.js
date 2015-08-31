@@ -1,8 +1,8 @@
 "use strict";
-import './setup/_bootstrap'
+import './setup/_bootstrap';
 import debug from './utils/debug';
 import './app.css';
-import { MinesweepContexts } from 'contexts/minesweepContexts'
+import { MinesweepContexts } from 'contexts/minesweep-contexts';
 let dd = debug('mainApp');
 
 window.addEventListener('DOMContentLoaded', () => {
