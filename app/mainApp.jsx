@@ -1,14 +1,11 @@
-import React from 'react';
-import AppContainer from './containers/AppContainer';
-import router from './routes/router';
+"use strict";
+import './setup/_bootstrap'
 import debug from './utils/debug';
 import './app.css';
+import { MinesweepContexts } from 'contexts/minesweepContexts'
+let dd = debug('mainApp');
 
-var dd = debug('mainApp');
-
-window.location.hash = '/';
-
-router.run(Handler => {
-  dd('router.run', Handler);
-  React.render(<Handler />, document.getElementById('react-root'));
-});
+window.addEventListener('DOMContentLoaded', () => {
+  let router = new Arda.Router(Arda.DefaultLayout, document.getElementById("react-root"));
+  router.pushContext(MinesweepContexts, {});
+})

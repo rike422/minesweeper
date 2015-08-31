@@ -5,7 +5,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var StatsPlugin = require('stats-webpack-plugin');
 var loadersByExtension = require('loaders-by-extension');
 var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
-
 var projectRoot = path.join(__dirname, '..');
 var appRoot = path.join(projectRoot, 'app');
 
@@ -13,7 +12,6 @@ module.exports = function(opts) {
   var entry = {
     main: opts.prerender ? path.join(appRoot, 'mainApp') : path.join(appRoot, 'mainApp')
   };
-
 
   var loaders = {
     'jsx': opts.hotComponents ? [ 'react-hot-loader', 'babel-loader' ] : 'babel-loader',
@@ -45,7 +43,7 @@ module.exports = function(opts) {
   ];
 
   var alias = {
-
+    "React": "react"
   };
 
   var aliasLoader = {
@@ -80,6 +78,7 @@ module.exports = function(opts) {
 
   var plugins = [
     new webpack.PrefetchPlugin('react'),
+    new webpack.PrefetchPlugin('arda'),
     new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment')
   ];
 
@@ -93,6 +92,7 @@ module.exports = function(opts) {
     externals.push(
       /^react(\/.*)?$/,
       /^reflux(\/.*)?$/,
+      'arda',
       'superagent',
       'async'
     );
@@ -109,9 +109,7 @@ module.exports = function(opts) {
   }
 
   var asyncLoader = {
-    test: require('../app/routes/async').map(function(name) {
-      return path.join(appRoot, 'routes', name);
-    }),
+    test: [],
     loader: opts.prerender ? 'react-proxy-loader/unavailable' : 'react-proxy-loader'
   };
 
@@ -154,6 +152,7 @@ module.exports = function(opts) {
   }
 
   externals.push(
+    'promised-redmine'
     // put your node 3rd party libraries which can't be built with webpack here (mysql, mongodb, and so on..)
   );
 
