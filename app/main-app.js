@@ -2,10 +2,10 @@
 import './setup/_bootstrap';
 import debug from './utils/debug';
 import './app.css';
-import { MinesweepContexts } from 'contexts/minesweep-contexts';
 let dd = debug('mainApp');
+import { MinesweepContexts } from 'contexts/minesweep-contexts';
 
 window.addEventListener('DOMContentLoaded', () => {
-  let router = new Arda.Router(Arda.DefaultLayout, document.getElementById("react-root"));
-  router.pushContext(MinesweepContexts, {});
+  window.Router = new Arda.Router(Arda.DefaultLayout, document.getElementById("react-root"));
+  Router.pushContext(MinesweepContexts, {});
 })
